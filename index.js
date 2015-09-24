@@ -11,7 +11,7 @@ var telegram = new TelegramApi();
 telegram.setToken(token);
 
 var server = new Hapi.Server();
-server.connection({ port: port });
+server.connection({ host: host, port: port });
 
 server.route({
 	method: 'POST',
