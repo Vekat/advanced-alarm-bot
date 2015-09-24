@@ -6,7 +6,7 @@ var host = process.env.OPENSHIFT_NODEJS_IP;
 var port = process.env.OPENSHIFT_NODEJS_PORT || 443;
 var url = process.env.OPENSHIFT_APP_DNS;
 
-var bot_api_url = 'https://'+ url + ':' + port+'/bot' + token;
+var bot_api_url = 'https://'+ url + '/bot' + token;
 
 var telegram = new TelegramApi();
 telegram.setToken(token);
