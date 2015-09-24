@@ -1,0 +1,20 @@
+{
+  "name": "advanced-alarm-bot",
+  "version": "1.0.0",
+  "description": "An Alarm bot for Telegram.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "alarm",
+    "bot",
+    "telegram"
+  ],
+  "author": "Vitor Albuquerque",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^10.0.1",
+    "request": "^2.63.0"
+  }
+}
