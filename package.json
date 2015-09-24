@@ -16,5 +16,7 @@
   "dependencies": {
     "hapi": "^10.0.1",
     "request": "^2.63.0"
-  }
+  },
+
+  "private": true
 }
