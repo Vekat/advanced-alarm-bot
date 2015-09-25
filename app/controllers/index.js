@@ -44,6 +44,12 @@ TelegramApi.prototype.handleMessage = function (reply, msg) {
 
 	var text = msg.text;
 	if (text && text.length > 9 && text.indexOf('/remember') === 0) {
+		handleRemember(text);
+	} else {
+		sendReply('I didn\'t get it. Try something like: /remember 10s play tibia with Kenya.');
+	}
+
+	function handleRemember(text) {
 		var baseText = text.substring(10);
 
 		var timeText = baseText.substring(0, baseText.indexOf(' '));
@@ -55,12 +61,14 @@ TelegramApi.prototype.handleMessage = function (reply, msg) {
 		var convertedTime;
 		if (unit === 's') { // seconds
 			convertedTime = time * 1000;
-		} else if (unit === 'm') {
+		} else if (unit === 'm') { // minutes
 			convertedTime = time * 1000 * 60;
-		} else if (unit === 'h') {
+		} else if (unit === 'h') { // hours
 			convertedTime = time * 1000 * 60 * 60;
+		} else if (unit === 'd') { // days
+			convertedTime = time * 1000 * 60 * 60 * 24;
 		} else {
-			sendReply('Oops! Please use one of the following formats: h, m, s. Example: /remember 10m invite Marco to sushi');
+			sendReply('Oops! Please use one of the following formats: d, h, m, s. Example: /remember 10m invite Marco to sushi');
 		}
 
 		if (convertedTime) {
@@ -70,9 +78,6 @@ TelegramApi.prototype.handleMessage = function (reply, msg) {
 
 			sendReply("I will remind you to '" + task + "' in " + timeText);
 		}
-
-	} else {
-		sendReply('I didn\'t get it. Try something like: /remember 10s play tibia with Kenya.');
 	}
 
 	function sendReply(messageReply) {
