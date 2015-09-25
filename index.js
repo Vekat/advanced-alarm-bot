@@ -19,8 +19,7 @@ server.route({
 	path: '/bot'+telegram.getToken(),
 	handler: function (request, reply) {
 		var payload = request.payload;
-		telegram.handleMessage(payload.message);
-		reply(200);
+		telegram.handleMessage(reply, payload.message);
 	}
 });
 

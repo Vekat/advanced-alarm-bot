@@ -38,20 +38,20 @@ TelegramApi.prototype.setWebhook = function (bot_api_url) {
 	});
 }
 
-TelegramApi.prototype.handleMessage = function (msg) {
+TelegramApi.prototype.handleMessage = function (reply, msg) {
+	var self = this;
 	console.log(msg);
+
 	var text = msg.text;
-	var chatId = msg.chat.id;
 	if (text && text.length > 9 && text.indexOf('/remember') === 0) {
 		var baseText = text.substring(10);
-		timeText = baseText.substring(0, baseText.indexOf(' '));
 
+		var timeText = baseText.substring(0, baseText.indexOf(' '));
 		var unit = timeText.substring(timeText.length-1);
 		var time = timeText.substring(0, timeText.length-1);
 
 		var task = baseText.substring(baseText.indexOf(' ')+1);
 
-		var self = this;
 		var convertedTime;
 		if (unit === 's') { // seconds
 			convertedTime = time * 1000;
@@ -60,16 +60,28 @@ TelegramApi.prototype.handleMessage = function (msg) {
 		} else if (unit === 'h') {
 			convertedTime = time * 1000 * 60 * 60;
 		} else {
-			self.sendMessage(chatId, 'Invalid unit. Please use one of the following formats: h, m, s. Example: /remember 10m invite Marco to sushi');
+			sendReply('Oops! Please use one of the following formats: h, m, s. Example: /remember 10m invite Marco to sushi');
 		}
+
 		if (convertedTime) {
 			setTimeout(function() {
 				self.sendMessage(chatId, task);
 			}, convertedTime);
-			self.sendMessage(chatId, "I will remind you to '" + task + "' in " + timeText);
+
+			sendReply("I will remind you to '" + task + "' in " + timeText);
 		}
+
 	} else {
-		this.sendMessage(msg.chat.id, 'Invalid usage. Try /remember 10s play tibia with Kenya.');
+		sendReply('I didn\'t get it. Try something like: /remember 10s play tibia with Kenya.');
+	}
+
+	function sendReply(messageReply) {
+		var infos = {
+			method: "sendMessage",
+			chat_id: msg.chat.id,
+			text: messageReply
+		};
+		reply(infos).code(200);
 	}
 }
 
