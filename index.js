@@ -1,5 +1,6 @@
 var Hapi = require('hapi');
 var TelegramApi = require('./app/controllers');
+var botan = require('botanio')(process.env.BOTAN_TOKEN);
 
 var token = process.env.BOT_TOKEN || process.argv[2];
 var host = process.env.OPENSHIFT_NODEJS_IP;
@@ -19,6 +20,7 @@ server.route({
 	path: '/bot'+telegram.getToken(),
 	handler: function (request, reply) {
 		var payload = request.payload;
+		botan.track(payload.message, 'Start');
 		telegram.handleMessage(reply, payload.message);
 	}
 });

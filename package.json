@@ -14,9 +14,9 @@
   "author": "Vitor Albuquerque",
   "license": "ISC",
   "dependencies": {
+    "botanio": "0.0.6",
     "hapi": "^10.0.1",
     "request": "^2.63.0"
   },
-
   "private": true
 }
