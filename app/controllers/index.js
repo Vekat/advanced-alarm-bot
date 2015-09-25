@@ -41,8 +41,10 @@ TelegramApi.prototype.setWebhook = function (bot_api_url) {
 TelegramApi.prototype.handleMessage = function (reply, msg) {
 	var self = this;
 	console.log(msg);
-
+	
+	var chatId = msg.chat.id;
 	var text = msg.text;
+	
 	if (text && text.length > 9 && text.indexOf('/remember') === 0) {
 		handleRemember(text);
 	} else {
@@ -83,7 +85,7 @@ TelegramApi.prototype.handleMessage = function (reply, msg) {
 	function sendReply(messageReply) {
 		var infos = {
 			method: "sendMessage",
-			chat_id: msg.chat.id,
+			chat_id: chatId,
 			text: messageReply
 		};
 		reply(infos).code(200);
