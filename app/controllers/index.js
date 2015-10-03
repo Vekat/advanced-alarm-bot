@@ -45,6 +45,12 @@ TelegramApi.prototype.handleMessage = function (reply, msg) {
 	var chatId = msg.chat.id;
 	var text = msg.text;
 	
+	// if the message comes from a group chat, ignore it
+	if (msg.chat.title == void(0)) {
+		sendReply('I don\'t support group chats yet');
+		return;
+	}
+	
 	if (text && text.length > 9 && text.indexOf('/remember') === 0) {
 		handleRemember(text);
 	} else {
